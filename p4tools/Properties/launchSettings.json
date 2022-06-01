@@ -2,8 +2,8 @@
   "profiles": {
     "p4tools": {
       "commandName": "Project",
-      "commandLineArgs": "as-protect --cl 126939 --define=AS_EPICFRIENDS",
-      "workingDirectory": "D:\\p4\\main"
+      "commandLineArgs": "as-undef --define=AS_EPICFRIENDS",
+      "workingDirectory": "D:\\p4\\task\\Games\\Pioneer\\Script"
     }
   }
 }

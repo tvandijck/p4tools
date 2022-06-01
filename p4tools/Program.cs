@@ -12,7 +12,7 @@ namespace p4tools
             {
                 config.AddCommand<UpdateGitCommand>("git-update");
                 config.AddCommand<ProtectAngelscriptCommand>("as-protect");
-                //config.AddCommand<RebaseCommand>("rebase");
+                config.AddCommand<RemoveDefineCommand>("as-undef");
             });
 
             return app.Run(args);

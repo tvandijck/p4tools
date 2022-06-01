@@ -41,16 +41,28 @@ namespace p4tools
             });
         }
 
+        public static void Delete(string filename)
+        {
+            var exec = new Executor(Directory.GetCurrentDirectory());
+            exec.ExecuteProcess("p4", "delete", Quoted(filename));
+        }
+
         public static string[] Print(string depotFile)
         {
             var exec = new Executor(Directory.GetCurrentDirectory());
 
-            if (exec.ExecuteProcess("p4", "print", "-q", depotFile) != 0)
+            if (exec.ExecuteProcess("p4", "print", "-q", Quoted(depotFile)) != 0)
             {
                 return Array.Empty<string>();
             }
 
             return exec.StdOut.ToArray();
+        }
+
+        public static void Checkout(string filename)
+        {
+            var exec = new Executor(Directory.GetCurrentDirectory());
+            exec.ExecuteProcess("p4", "edit", Quoted(filename));
         }
 
         public static PerforceChangeList? GetChange(string changeList)
@@ -85,7 +97,7 @@ namespace p4tools
             output.User = root["User"]?.ToString();
 
             int idx = 0;
-            for (;;)
+            for (; ; )
             {
                 var file = root[$"Files{idx++}"];
                 if (file == null)
@@ -96,17 +108,27 @@ namespace p4tools
             return output;
         }
 
+        public static void Add(string filename)
+        {
+            var exec = new Executor(Directory.GetCurrentDirectory());
+            exec.ExecuteProcess("p4", "add", Quoted(filename));
+        }
 
         public static string[] GetPatch(string depotFile)
         {
             var exec = new Executor(Directory.GetCurrentDirectory());
 
-            if (exec.ExecuteProcess("p4", "diff", "-dup", depotFile) != 0)
+            if (exec.ExecuteProcess("p4", "diff", "-dup", Quoted(depotFile)) != 0)
             {
                 return Array.Empty<string>();
             }
 
             return exec.StdOut.ToArray();
+        }
+
+        private static string Quoted(string value)
+        {
+            return '"' + value + '"';
         }
     }
 }

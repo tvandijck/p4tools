@@ -5,6 +5,7 @@ using System.Text.Json;
 
 namespace p4tools
 {
+
     internal class ProtectAngelscriptCommand : Command<ProtectAngelscriptCommand.Settings>
     {
         public class Settings : CommandSettings
@@ -70,7 +71,7 @@ namespace p4tools
 
             var outputFile = patch[1].Substring(4);
             var idx = outputFile.IndexOf('\t');
-            if (idx <0)
+            if (idx < 0)
             {
                 AnsiConsole.WriteLine("ERROR: patch output not right");
                 return -1;
